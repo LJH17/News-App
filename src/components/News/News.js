@@ -62,6 +62,26 @@ export const News = ({
       <div className="grid grid-cols-1 md:grid-cols-2">
         { articles.length > 0 && articles.map((article, i) => <NewsArticle article={article} key={i} />) }
       </div>
+      <div className="flex justify-evenly pt-2">
+        { allowPreviousPage && (
+          <button
+            className="rounded-md bg-primary text-white p-4"
+            onClick={() => onGetNewsArticles(search, { prevPage: true })}
+            disabled={loading}
+          >
+            Previous Page
+          </button>
+        )}
+        { allowNextPage && (
+          <button
+            className="rounded-md bg-primary text-white p-4"
+            onClick={() => onGetNewsArticles(search, { nextPage: true })}
+            disabled={loading}
+          >
+            Next Page
+          </button>
+        )}
+      </div>
     </div>
   );
 };
