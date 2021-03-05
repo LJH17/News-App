@@ -1,4 +1,9 @@
 import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import { dispatchGetNewsArticles } from '../../store/states/news/thunks';
 
 import NewsArticle from './NewsArticle';
 
@@ -9,5 +14,20 @@ const News = () => (
     <NewsArticle />
   </section>
 );
+const mapStateToProps = (state) => ({
+  allowNextPage: state.news.allowNextPage,
+  allowPreviousPage: state.news.allowPreviousPage,
+  articles: state.news.articles,
+  error: state.news.error,
+  loading: state.news.loading
+});
 
-export default News;
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      onGetNewsArticles: dispatchGetNewsArticles,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(News);
